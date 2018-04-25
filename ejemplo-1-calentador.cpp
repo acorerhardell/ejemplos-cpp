@@ -21,12 +21,14 @@ Calentador::Calentador()
 
 void Calentador::calentar()
 {
-    temperatura+=5;
+    if(temperatura+incremento<=30){
+        temperatura+=incremento;}
 }
 
 void Calentador::enfriar()
 {
-    temperatura-=5;
+    if(temperatura-incremento<=-10){
+        temperatura-=incremento;}
 }
 
 void Calentador::imprimirTemperatura()
@@ -43,6 +45,11 @@ int main()
 {
     Calentador c1;
     Calentador c2;
+    
+    for(int i=0;i<10;i++){
+        c1.calentar();
+        c1.imprimirTemperatura();
+    }
     
     c1.calentar();
     c1.imprimirTemperatura();
