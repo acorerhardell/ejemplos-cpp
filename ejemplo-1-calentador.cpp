@@ -9,11 +9,12 @@ private:
     int max;
 public:
     Calentador(int min, int max,int temperatura=0);
-    void calentar();
-    void enfriar();
+    void operator++();
+    void operator--();
     void imprimeCentigrados() const;
     void imprimeFarenheit() const;
     int accedeTemperatura() const;
+    bool operator ==(Calentador otro);
 };//punto y coma obligatorio
 
 Calentador::Calentador(int min, int max, int temperatura)
@@ -34,13 +35,13 @@ Calentador::Calentador(int min, int max, int temperatura)
     this->max=max;
 }
 
-void Calentador::calentar()
+void Calentador::operator++()
 {
     if(temperatura+incremento<=this->max){
         temperatura+=incremento;}
 }
 
-void Calentador::enfriar()
+void Calentador::operator--()
 {
     if(temperatura-incremento>=this->min){
         temperatura-=incremento;}
@@ -64,18 +65,32 @@ void Calentador::imprimeFarenheit() const
 
 int main()
 {
-    try {
+    //try {
         Calentador c1{-10,10};
         
-        Calentador c2{30,10,0};
+        Calentador c2{0,30,10};
         
-        c1.calentar();
+        if(c1==c2)
+            std::cout<<"Iguales\n";
+        else
+            // c1==c2 es equivalente a c1.operator==(c2);
+            std::cout<<"Diferentes\n";
+        ++c1;
         c1.imprimeCentigrados();
         c1.imprimeFarenheit();
         
-        c2.enfriar();
+        //--c2 es equivalenete a c2.operator--();
+        --c2;
         c2.imprimeCentigrados();
         c2.imprimeFarenheit();
-        }
-    catch (const std::runtime_error &e)
+        //}
+    //catch (const std::runtime_error &e)
+}
+
+bool Calentador::operator==(Calentador otro)
+{
+    if(this->temperatura==otro.temperatura)
+        return true;
+    else
+        return false;
 }
